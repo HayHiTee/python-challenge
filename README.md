@@ -16,8 +16,13 @@ pip install -r requirements.txt
 ```
 
 ## Running the code
+
+config the FLASK_APP environment variable to run.py
+```.env
 set FLASK_APP = run.py
-flask run
+```
+
+
 
 ### Spin up the service
 
