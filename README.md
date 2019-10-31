@@ -33,11 +33,16 @@ curl -i "http://127.0.0.1:5000/users/{team/organization_name}"
 ```
 ### Test
 ```
+python tests.py
+
+OR
+
 python -m unittest
 ```
 
 
 ## What'd I'd like to improve on...
-Custom Errors Handling
-Github and Bitbucket repo topics
+    1.) Custom Errors Handling
+    
+    2.) Github and Bitbucket repo topics
 
