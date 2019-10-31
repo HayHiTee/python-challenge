@@ -1,6 +1,6 @@
 # Coding Challenge App
 
-A skeleton flask app to use for a coding challenge.
+A flask app for a coding challenge.
 
 ## Install:
 
@@ -16,6 +16,8 @@ pip install -r requirements.txt
 ```
 
 ## Running the code
+set FLASK_APP = run.py
+flask run
 
 ### Spin up the service
 
@@ -27,8 +29,15 @@ python -m run
 ### Making Requests
 
 ```
-curl -i "http://127.0.0.1:5000/health-check"
+curl -i "http://127.0.0.1:5000/users/{team/organization_name}"
+```
+### Test
+```
+python -m unittest
 ```
 
 
 ## What'd I'd like to improve on...
+Custom Errors Handling
+Github and Bitbucket repo topics
+
