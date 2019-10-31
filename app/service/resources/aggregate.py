@@ -47,7 +47,7 @@ class AggregateResources:
 
     def get_resource_errors(self) -> dict:
         """
-        Aggregates all the errors of each instances to the and present to the users
+        Aggregates all the errors of each instances to error and presents to the users
         :return:
         """
         errors = {}
@@ -57,7 +57,7 @@ class AggregateResources:
 
     def aggregate_results(self) -> dict:
         """
-        This method aggregates the results of each instance and add them up, return as a dictionary
+        This method aggregates the results of each instance and adds them up, returns as a dictionary
         :return: results
         """
 

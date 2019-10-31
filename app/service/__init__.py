@@ -20,6 +20,12 @@ DEFAULT_METHODS = ('GET', 'POST', 'PUT', 'DELETE')
 
 
 class RestEndpoint:
+    """
+    Rest Endpoints Abstract Class used to dispatch asynchronous requests. Raise Errors if any of the default method
+     is not defined in the subclass . Also raises error if any method not listed in default is called in dispatch
+
+    """
+
     def __init__(self):
         self.methods = {}
 
@@ -40,7 +46,13 @@ class RestEndpoint:
 
 
 class MixinEndpoint(RestEndpoint):
-    def __init__(self, session):
+    """
+    Subclasses the RestEndpoint and implement async  get and post method
+    :arg: session
+    :type session: aiohttp.ClientSession
+    """
+
+    def __init__(self, session: aiohttp.ClientSession):
         super().__init__()
         self.session = session
 
@@ -54,11 +66,20 @@ class MixinEndpoint(RestEndpoint):
 
 
 class AsyncRequest:
-    def __init__(self, urls: list):
+    """Gets the lists of the urls and fetch them asynchronously
+    :arg urls: list of the urls to be iterated and run asynchronously
+    :type urls: iterable
+    """
+
+    def __init__(self, urls: iter):
         self.urls = urls
         pass
 
     def run(self):
+        """
+        Called to run the fetch the the requests of the urls asynchronously
+        :return: list of urls responses in the order of url definition
+        """
         return asyncio.run(self.fetch_all())
 
     async def fetch_all(self, **kwargs):

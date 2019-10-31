@@ -69,6 +69,31 @@ class BitBucketResource(Resource):
     It must implement the process_response method else NotImplementedError will be raised
     """
 
+    @staticmethod
+    def process_repo(values):
+        # Helper function to help process and loop through repos to get values¿
+        watchers_links = []
+        languages = set()
+        for repo in values:
+            lang = repo.get('language')
+            if lang:
+                languages.add(lang.capitalize())
+            # print(languages)
+            links = repo.get('links')
+            if links:
+                watchers = links.get('watchers')
+                if watchers:
+                    watchers_link = watchers.get('href')
+                    watchers_links.append(watchers_link)
+
+        async_request = AsyncRequest(watchers_links)
+        responses = async_request.run()
+        watchers_count = 0
+        for res in responses:
+            watchers_count += int(res.get('size'))
+
+        return watchers_count, languages
+
     # version 2 of bitbucket api
     def __init__(self, user):
         base_url = 'https://bitbucket.org/'
@@ -85,42 +110,13 @@ class BitBucketResource(Resource):
             self.errors = self.response.get('error')
         if self.errors:
             print(self.errors)
-
-        # Find the values
-
-        # if not values:
-        #     type = self.response.get('type')
-        #     msg = self.response.get(type, 'An Error has occured')
-        #     self.errors = msg
         else:
             values = self.response.get('values')
             size = self.response.get('size', 0)
             self.total_number_of_repos = size
-            watchers_links = []
-            languages = set()
-            for repo in values:
-                lang = repo.get('language')
-                if lang:
-                    languages.add(lang.capitalize())
-                # print(languages)
-                links = repo.get('links')
-                if links:
-                    watchers = links.get('watchers')
-                    if watchers:
-                        watchers_link = watchers.get('href')
-                        watchers_links.append(watchers_link)
-            self.list_repos_languages = languages
-            async_request = AsyncRequest(watchers_links)
-            responses = async_request.run()
-            watchers_count = 0
-            for res in responses:
-                watchers_count += int(res.get('size'))
-
-            self.total_watcher_or_follower_count = watchers_count
+            self.total_watcher_or_follower_count, self.list_repos_languages = self.process_repo(values)
 
         print('bit language: ', self.list_repos_languages)
         print('bit repo count:', self.total_number_of_repos)
         print('bit followers count', self.total_watcher_or_follower_count)
 
-
-register_resources_classes = {'github': GitHubResource, 'bitbucket': BitBucketResource}

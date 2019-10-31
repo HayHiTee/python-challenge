@@ -28,6 +28,14 @@ def get_valid_base_url(protocol, base_url):
     return base_url
 
 
+# This service connection is responsible for building the urls given the base url and endpoint.
+# An endpoint can be defined with a key-value and pass to service_connection_endpoints
+# where the value does not have to include the base url.
+# With the service connection, an endpoint url can be got by just passing the the key to get_connection_url
+# For example: Define base_url = www.google.com/. List of endpoints url for google are www.google.com/create,
+# www.google.com/post. Just initialize service_connection_endpoints = {'post':'post', 'create':'create'}
+# Get the url by using get_connection_url('post') -> www.google.com/post
+
 class ServiceConnection:
     _emulator_endpoints = _EMULATOR_ENDPOINTS
     _service_connection_endpoints = _CONNECTION_ENDPOINTS
