@@ -253,7 +253,7 @@ class APITestCase(unittest.TestCase):
         res = self.client.get('/users',
                               follow_redirects=True)
         # print(r.content)
-        print(res.data)
+        # print(res.data)
         self.assertEqual(res.status_code, 404)
 
 
