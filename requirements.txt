@@ -8,4 +8,4 @@ Werkzeug==0.15.2
 aiohttp==3.6.2
 aiodns==2.0.0
 pytest==5.2.2
-twisted==19.7.0
+twisted==22.10.0
